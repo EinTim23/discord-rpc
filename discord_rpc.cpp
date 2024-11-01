@@ -373,6 +373,9 @@ extern "C" DISCORD_EXPORT void Discord_Shutdown(void)
 extern "C"
 DISCORD_EXPORT bool Discord_IsConnected()
 {
+    if (!Connection) {
+        return false;
+    }
     return Connection->state != RpcConnection::State::Disconnected;
 }
 DISCORD_EXPORT void Discord_UpdatePresence(const DiscordRichPresence* presence)
