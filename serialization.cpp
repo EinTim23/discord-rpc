@@ -137,10 +137,13 @@ size_t JsonWriteRichPresenceObj(char* dest,
                     WriteOptionalString(writer, "small_image", presence->smallImageKey);
                     WriteOptionalString(writer, "small_text", presence->smallImageText);
                 }
-                if ((presence->button1link && presence->button1link[0] && presence->button1name &&
-                     presence->button1name[0])) {
+                if ((presence->button1link && presence->button1link[0]) || (presence->button2link && presence->button2link[0])) {
                     WriteKey(writer, "buttons");
                     writer.StartArray();
+                }
+               
+                if ((presence->button1link && presence->button1link[0] && presence->button1name &&
+                     presence->button1name[0])) {
                     writer.StartObject();
                     WriteOptionalString(writer, "label", presence->button1name);
                     WriteOptionalString(writer, "url", presence->button1link);
@@ -152,11 +155,10 @@ size_t JsonWriteRichPresenceObj(char* dest,
                     WriteOptionalString(writer, "label", presence->button2name);
                     WriteOptionalString(writer, "url", presence->button2link);
                     writer.EndObject();
-                    writer.EndArray();
                 }
-                else if ((presence->button1link && presence->button1link[0] &&
-                          presence->button1name && presence->button1name[0]))
+                if ((presence->button1link && presence->button1link[0]) || (presence->button2link && presence->button2link[0]))
                     writer.EndArray();
+                
                 if ((presence->partyId && presence->partyId[0]) || presence->partySize ||
                     presence->partyMax || presence->partyPrivacy) {
                     WriteObject party(writer, "party");
