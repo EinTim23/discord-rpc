@@ -33,8 +33,15 @@ enum ActivityType {
     COMPETING = 5
 };
 
+enum StatusDisplayType {
+    APPNAME = 0,
+    STATE = 1, // Artist on listening
+    DETAILS = 2 // Title on Listening
+};
+
 typedef struct DiscordRichPresence {
     int64_t type;
+    int64_t displayType;
     const char* state;   /* max 128 bytes */
     const char* details; /* max 128 bytes */
     int64_t startTimestamp;

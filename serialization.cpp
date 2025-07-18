@@ -110,6 +110,11 @@ size_t JsonWriteRichPresenceObj(char* dest,
                     writer.Int64(presence->type);
                 }
 
+                if (presence->displayType) {
+                    WriteKey(writer, "status_display_type");
+                    writer.Int64(presence->displayType);
+                }
+
                 WriteOptionalString(writer, "state", presence->state);
                 WriteOptionalString(writer, "details", presence->details);
 
